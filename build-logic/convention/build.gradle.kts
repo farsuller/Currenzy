@@ -54,5 +54,10 @@ gradlePlugin{
             id = "currenzy.compose.library"
             implementationClass = "ComposeLibraryConventionPlugin"
         }
+
+        register("androidFeature"){
+            id = "currenzy.android.feature"
+            implementationClass = "AndroidFeatureConventionPlugin"
+        }
     }
 }

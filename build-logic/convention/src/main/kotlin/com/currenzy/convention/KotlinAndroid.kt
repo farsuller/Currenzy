@@ -7,6 +7,7 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 
@@ -35,14 +36,15 @@ internal fun Project.configureKotlinJvm(){
 }
 
 private fun Project.configureKotlin(){
-    tasks.withType<KotlinCompile>().configureEach {
-        @Suppress("DEPRECATION")
-        kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_11.toString()
-            val warningsAsErrors: String? by project
-            allWarningsAsErrors = warningsAsErrors.toBoolean()
-            freeCompilerArgs = freeCompilerArgs + listOf(
-                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+    tasks.withType<KotlinCompile> {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+            freeCompilerArgs.addAll(
+                listOf(
+                    "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+                    "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
+                    "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi"
+                )
             )
         }
     }

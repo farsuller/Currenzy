@@ -96,6 +96,7 @@ currenzy-android-library = {id = "currenzy.android.library", version = "unspecif
 currenzy-jvm-library = {id = "currenzy.jvm.library", version = "unspecified"}
 currenzy-android-hilt = {id = "currenzy.android.hilt", version = "unspecified"}
 currenzy-compose-library = {id = "currenzy.compose.library", version = "unspecified"}
+currenzy-android-feature = {id = "currenzy.android.feature", version = "unspecified"}
 
 [bundles]
 bundle-room = ["room-compiler","room-ktx","room-runtime","room-gradlePlugin"]
