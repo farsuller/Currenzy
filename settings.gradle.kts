@@ -21,6 +21,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Currenzy"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
 include(":core")
 include(":core:network")

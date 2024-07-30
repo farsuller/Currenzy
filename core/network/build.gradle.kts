@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.currenzy.android.library)
+    alias(libs.plugins.currenzy.android.hilt)
     id("kotlinx-serialization")
 }
 
@@ -12,5 +13,5 @@ dependencies {
     implementation(libs.retrofit.logger)
     implementation(libs.retrofit.kotlin.serialization)
     implementation(libs.kotlin.serialization.json)
-    implementation(project(":core:model"))
+    implementation(projects.core.model)
 }

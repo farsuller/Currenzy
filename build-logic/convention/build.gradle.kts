@@ -28,6 +28,8 @@ tasks{
 dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.android.tools.common)
+    compileOnly(libs.ksp.gradlePlugin)
 }
 
 gradlePlugin{
@@ -41,6 +43,11 @@ gradlePlugin{
         register("jvmLibrary"){
             id = "currenzy.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
+        }
+
+        register("androidHilt"){
+            id = "currenzy.android.hilt"
+            implementationClass = "AndroidHiltConventionPlugin"
         }
     }
 }

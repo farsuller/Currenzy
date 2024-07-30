@@ -94,6 +94,7 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 currenzy-android-library = {id = "currenzy.android.library", version = "unspecified"}
 currenzy-jvm-library = {id = "currenzy.jvm.library", version = "unspecified"}
+currenzy-android-hilt = {id = "currenzy.android.hilt", version = "unspecified"}
 
 [bundles]
 bundle-room = ["room-compiler","room-ktx","room-runtime","room-gradlePlugin"]
