@@ -32,9 +32,15 @@ dependencies {
 
 gradlePlugin{
     plugins{
+
        register("androidLibrary"){
            id = "currenzy.android.library"
            implementationClass = "AndroidLibraryConventionPlugin"
        }
+
+        register("jvmLibrary"){
+            id = "currenzy.jvm.library"
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
     }
 }

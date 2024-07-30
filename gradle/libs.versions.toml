@@ -15,8 +15,6 @@ androidTools = "31.5.1"
 devtoolKsp = "2.0.0-1.0.22"
 
 retrofit = "2.11.0"
-interceptor = "3.9.0"
-retrofit2-ktx-conveter = "1.0.0"
 
 navigation-compose = "2.7.7"
 hilt-navigation-compose = "1.2.0"
@@ -58,8 +56,9 @@ androidx-lifecycle-viewModelCompose = { group = "androidx.lifecycle", name = "li
 androidx-work = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workVersion" }
 
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-retrofit-kotlin-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version = "retrofit2-ktx-conveter" }
-retrofit-logger = { group = "com.squareup.okhttp3", name = "logging-interceptor", version = "interceptor" }
+retrofit-kotlin-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version = "1.0.0" }
+retrofit-logger = { group = "com.squareup.okhttp3", name = "logging-interceptor", version = "4.12.0" }
+kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.6.3" }
 
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose"}
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"}
@@ -92,7 +91,9 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 devtool-ksp = { id = "com.google.devtools.ksp", version.ref = "devtoolKsp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 currenzy-android-library = {id = "currenzy.android.library", version = "unspecified"}
+currenzy-jvm-library = {id = "currenzy.jvm.library", version = "unspecified"}
 
 [bundles]
 bundle-room = ["room-compiler","room-ktx","room-runtime","room-gradlePlugin"]
