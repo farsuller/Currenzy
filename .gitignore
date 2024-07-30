@@ -13,3 +13,9 @@
 .externalNativeBuild
 .cxx
 local.properties
+/core/data/build
+/core/model/build
+/core/network/build
+/core/ui/build
+/core/design/build
+

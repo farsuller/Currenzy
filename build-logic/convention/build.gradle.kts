@@ -49,5 +49,10 @@ gradlePlugin{
             id = "currenzy.android.hilt"
             implementationClass = "AndroidHiltConventionPlugin"
         }
+
+        register("composeLibrary"){
+            id = "currenzy.compose.library"
+            implementationClass = "ComposeLibraryConventionPlugin"
+        }
     }
 }
