@@ -29,7 +29,7 @@ fun CurrenzyTextField(
     BasicTextField(
         value = value,
         onValueChange = { onValueChange(it) },
-        modifier = Modifier
+        modifier = modifier
             .clip(RoundedCornerShape(7.dp))
             .background(Color(0xFFEFFEFE))
             .fillMaxWidth()

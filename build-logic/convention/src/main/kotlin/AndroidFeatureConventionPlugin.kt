@@ -13,7 +13,6 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
 
 
             dependencies {
-                add("implementation", project(":core:ui"))
                 add("implementation", project(":core:design"))
 
                 add("implementation",libs.findLibrary("hilt-navigation-compose").get())
