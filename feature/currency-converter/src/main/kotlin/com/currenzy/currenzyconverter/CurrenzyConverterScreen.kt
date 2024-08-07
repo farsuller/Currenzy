@@ -1,7 +1,7 @@
 package com.currenzy.currenzyconverter
 
-import androidx.compose.animation.Animatable
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,6 +23,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -37,6 +38,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.currenzy.design.R
 import com.currenzy.design.components.CurrenzyBackgroundScreen
 import com.currenzy.design.components.CurrenzyCard
@@ -46,11 +50,25 @@ import com.currenzy.design.theme.CurrenzyTheme
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun CurrenzyConverterRoute() {
+fun CurrenzyConverterRoute(
+    viewModel:CurrenzyConverterViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    CurrenzyConverterScreen(
+        uiState = uiState,
+        onFromCurrencyChange = viewModel::onFromCurrencyChange,
+        onToCurrencyChange = {},
+        onSwap = {})
 }
 
 @Composable
-fun CurrenzyConverterScreen() {
+fun CurrenzyConverterScreen(
+    uiState: CurrenzyConverterUiState,
+    onFromCurrencyChange: (CurrenzyUiModel) -> Unit,
+    onToCurrencyChange: (CurrenzyUiModel) -> Unit,
+    onSwap: () -> Unit
+) {
     CurrenzyBackgroundScreen {
 
         Column(
@@ -80,34 +98,36 @@ fun CurrenzyConverterScreen() {
 
 
             CurrenzyConverterCard(
-                allCurrencies = listOf(),
-                fromCurrency = CurrenzyUiModel("USD", ""),
-                toCurrency = CurrenzyUiModel("PHP", ""),
-                onFromCurrencyChanged = {},
+                allCurrencies = uiState.allCurrencies,
+                fromCurrency = uiState.fromCurrency,
+                toCurrency = uiState.toCurrency,
+                onFromCurrencyChanged = onFromCurrencyChange,
                 onToCurrencyChanged = {},
                 onSwap = {}
             )
 
             Spacer(modifier = Modifier.height(30.dp))
             
-            Text(text = stringResource(id = R.string.indicative_exchange_rate),
+            Text(text = "${stringResource(id = R.string.indicative_exchange_rate)} ${uiState.lastUpdated}",
                 modifier = Modifier.padding(horizontal = 22.dp),
                 style = MaterialTheme.typography.labelSmall)
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            Text(text = "Placeholder Text",
+            Text(text = uiState.indicativeExchangeRate,
                 modifier = Modifier.padding(horizontal = 22.dp),
                 style = MaterialTheme.typography.titleSmall.copy(color = Color.Black))
 
-            Box(modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center)
-            {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(30.dp)
-                )
-            }
 
+            if(uiState.isLoading){
+                Box(modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center)
+                {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
+            }
         }
     }
 }
@@ -205,7 +225,7 @@ fun CurrenzySwapper(
     onSwap :() -> Unit
 ){
     val animatable = remember {
-        androidx.compose.animation.core.Animatable(0F)
+        Animatable(0F)
     }
 
     val scope = rememberCoroutineScope()
@@ -275,6 +295,11 @@ internal fun CurrenzyInfoRowPreview() {
 @Composable
 internal fun CurrenzyConverterScreenPreview() {
     CurrenzyTheme {
-        CurrenzyConverterScreen()
+        CurrenzyConverterScreen(
+            uiState = CurrenzyConverterUiState.PreviewData,
+            onFromCurrencyChange = {},
+            onToCurrencyChange = {},
+            onSwap = {}
+        )
     }
 }
