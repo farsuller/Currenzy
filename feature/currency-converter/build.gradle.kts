@@ -8,3 +8,8 @@ android {
     namespace = "com.currenzy.currenzy.converter"
 }
 
+dependencies {
+    implementation(projects.core.data)
+    implementation(projects.core.model)
+}
+

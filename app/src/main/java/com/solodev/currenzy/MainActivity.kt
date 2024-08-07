@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import com.currenzy.currenzyconverter.CurrenzyConverterScreen
 import com.currenzy.design.components.CurrenzyTextMenu
 import com.currenzy.design.theme.CurrenzyTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,15 +17,10 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        enableEdgeToEdge()
         setContent {
             CurrenzyTheme {
-                CurrenzyTextMenu(
-                    selectedOption = "Select Currency",
-                    options = listOf("USD", "EUR", "INR"),
-                ){
-
-                }
+                CurrenzyConverterScreen()
             }
         }
     }
