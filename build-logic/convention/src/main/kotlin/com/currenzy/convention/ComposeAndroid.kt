@@ -3,12 +3,10 @@ package com.currenzy.convention
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 internal fun Project.configureAndroidCompose(
-    commonExtension: CommonExtension<*,*,*,*,*,*>
-){
+    commonExtension: CommonExtension<*, *, *, *, *, *>
+) {
     commonExtension.apply {
         buildFeatures {
             compose = true

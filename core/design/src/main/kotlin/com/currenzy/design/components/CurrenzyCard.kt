@@ -47,7 +47,9 @@ fun CurrenzyCardPreview() {
     CurrenzyTheme {
         CurrenzyCard {
             CurrenzyCard(
-                modifier = Modifier.width(300.dp).height(200.dp)
+                modifier = Modifier
+                    .width(300.dp)
+                    .height(200.dp)
             ) {
 
             }

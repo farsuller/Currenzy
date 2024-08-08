@@ -51,7 +51,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun CurrenzyConverterRoute(
-    viewModel:CurrenzyConverterViewModel = hiltViewModel()
+    viewModel: CurrenzyConverterViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -108,21 +108,27 @@ fun CurrenzyConverterScreen(
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-            
-            Text(text = "${stringResource(id = R.string.indicative_exchange_rate)} ${uiState.lastUpdated}",
+
+            Text(
+                text = "${stringResource(id = R.string.indicative_exchange_rate)} ${uiState.lastUpdated}",
                 modifier = Modifier.padding(horizontal = 22.dp),
-                style = MaterialTheme.typography.labelSmall)
+                style = MaterialTheme.typography.labelSmall
+            )
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            Text(text = uiState.indicativeExchangeRate,
+            Text(
+                text = uiState.indicativeExchangeRate,
                 modifier = Modifier.padding(horizontal = 22.dp),
-                style = MaterialTheme.typography.titleMedium.copy(color = Color.Black))
+                style = MaterialTheme.typography.titleMedium.copy(color = Color.Black)
+            )
 
 
-            if(uiState.isLoading){
-                Box(modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center)
+            if (uiState.isLoading) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                )
                 {
                     CircularProgressIndicator(
                         modifier = Modifier.size(30.dp)
@@ -223,16 +229,18 @@ private fun CurrenzyInfoRow(
 @Composable
 fun CurrenzySwapper(
     modifier: Modifier = Modifier,
-    onSwap :() -> Unit
-){
+    onSwap: () -> Unit
+) {
     val animatable = remember {
         Animatable(0F)
     }
 
     val scope = rememberCoroutineScope()
 
-    Box(modifier = modifier.fillMaxWidth(),
-        contentAlignment = Alignment.Center){
+    Box(
+        modifier = modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ) {
         HorizontalDivider()
         Box(
             modifier = modifier
@@ -251,14 +259,18 @@ fun CurrenzySwapper(
                         )
                     }
                 },
-            contentAlignment = Alignment.Center){
-            Icon(painter = painterResource(
-                id = R.drawable.ic_trade),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                painter = painterResource(
+                    id = R.drawable.ic_trade
+                ),
                 contentDescription = null,
                 tint = Color.White,
                 modifier = Modifier
                     .padding(10.dp)
-                    .rotate(animatable.value))
+                    .rotate(animatable.value)
+            )
         }
     }
 }

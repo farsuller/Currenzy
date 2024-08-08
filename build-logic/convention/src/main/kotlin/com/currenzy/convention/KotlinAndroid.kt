@@ -6,17 +6,16 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 
-internal fun Project.configureKotlinAndroid(commonExtension:CommonExtension<*,*,*,*,*,*>){
+internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, *, *, *, *, *>) {
     commonExtension.apply {
         compileSdk = 34
 
-        defaultConfig{
+        defaultConfig {
             minSdk = 26
             compileOptions {
                 sourceCompatibility = JavaVersion.VERSION_11
@@ -31,8 +30,9 @@ internal fun Project.configureKotlinAndroid(commonExtension:CommonExtension<*,*,
         }
     }
 }
-internal fun Project.configureKotlinJvm(){
-    extensions.configure<JavaPluginExtension>{
+
+internal fun Project.configureKotlinJvm() {
+    extensions.configure<JavaPluginExtension> {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -40,7 +40,7 @@ internal fun Project.configureKotlinJvm(){
     configureKotlin()
 }
 
-private fun Project.configureKotlin(){
+private fun Project.configureKotlin() {
     tasks.withType<KotlinCompile> {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)

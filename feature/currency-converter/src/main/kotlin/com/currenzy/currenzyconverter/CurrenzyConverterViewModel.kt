@@ -137,8 +137,7 @@ class CurrenzyConverterViewModel @Inject constructor(
                         it.copy(
                             fromCurrency = fromCurrency.copy(value = convertedResult),
                             toCurrency = toCurrency,
-
-                            )
+                        )
                     }
                 }
             }

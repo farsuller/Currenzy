@@ -6,7 +6,7 @@ object CurrenzyConverter {
         fromCurrencyRateVsBaseCurrencyRate: Double,
         toCurrencyRateVsBaseCurrencyRate: Double,
         amount: Double
-    ): Double{
+    ): Double {
         return (toCurrencyRateVsBaseCurrencyRate / fromCurrencyRateVsBaseCurrencyRate) * amount
     }
 }

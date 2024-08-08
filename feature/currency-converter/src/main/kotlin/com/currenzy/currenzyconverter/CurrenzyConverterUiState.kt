@@ -2,12 +2,12 @@ package com.currenzy.currenzyconverter
 
 data class CurrenzyConverterUiState(
     val isLoading: Boolean = true,
-    val allCurrencies : List<CurrenzyUiModel> = emptyList(),
-    val fromCurrency : CurrenzyUiModel = CurrenzyUiModel("", ""),
-    val toCurrency : CurrenzyUiModel = CurrenzyUiModel("", ""),
-    val indicativeExchangeRate : String = "",
-    val lastUpdated : String = ""
-){
+    val allCurrencies: List<CurrenzyUiModel> = emptyList(),
+    val fromCurrency: CurrenzyUiModel = CurrenzyUiModel("", ""),
+    val toCurrency: CurrenzyUiModel = CurrenzyUiModel("", ""),
+    val indicativeExchangeRate: String = "",
+    val lastUpdated: String = ""
+) {
     companion object {
         val PreviewData = CurrenzyConverterUiState(
             fromCurrency = CurrenzyUiModel(code = "USD", value = "1000.00"),
