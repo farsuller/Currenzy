@@ -58,8 +58,9 @@ fun CurrenzyConverterRoute(
     CurrenzyConverterScreen(
         uiState = uiState,
         onFromCurrencyChange = viewModel::onFromCurrencyChange,
-        onToCurrencyChange = {},
-        onSwap = {})
+        onToCurrencyChange = viewModel::onToCurrencyChange,
+        onSwap = viewModel::swapCurrencies
+    )
 }
 
 @Composable
@@ -102,8 +103,8 @@ fun CurrenzyConverterScreen(
                 fromCurrency = uiState.fromCurrency,
                 toCurrency = uiState.toCurrency,
                 onFromCurrencyChanged = onFromCurrencyChange,
-                onToCurrencyChanged = {},
-                onSwap = {}
+                onToCurrencyChanged = onToCurrencyChange,
+                onSwap = onSwap
             )
 
             Spacer(modifier = Modifier.height(30.dp))
@@ -116,7 +117,7 @@ fun CurrenzyConverterScreen(
 
             Text(text = uiState.indicativeExchangeRate,
                 modifier = Modifier.padding(horizontal = 22.dp),
-                style = MaterialTheme.typography.titleSmall.copy(color = Color.Black))
+                style = MaterialTheme.typography.titleMedium.copy(color = Color.Black))
 
 
             if(uiState.isLoading){

@@ -92,7 +92,7 @@ fun CurrenzyTextMenuPreview() {
     CurrenzyTheme {
         CurrenzyTextMenu(
             selectedOption = "Select Currency",
-            options = listOf("USD", "EUR", "INR"),
+            options = listOf("USD", "PHP", "INR"),
         ) {
         }
     }
