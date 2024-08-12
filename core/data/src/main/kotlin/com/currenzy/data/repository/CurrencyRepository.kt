@@ -1,9 +1,9 @@
 package com.currenzy.data.repository
 
-import com.currenzy.model.currency_converter.ExchangeRate
+import Syncable
+import com.currenzy.model.currency_converter.ExchangeRates
 import kotlinx.coroutines.flow.Flow
 
-interface CurrencyRepository {
-
-    suspend fun getExchangeRate(): ExchangeRate
+interface CurrencyRepository : Syncable {
+    fun getExchangeRate(): Flow<ExchangeRates>
 }

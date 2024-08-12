@@ -100,6 +100,9 @@ dependencies {
 
     coreLibraryDesugaring(libs.android.desugarJdkLibs)
 
+    implementation(libs.androidx.work)
+    implementation(libs.hilt.ext.work)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -111,6 +114,7 @@ dependencies {
     implementation(projects.core.network)
     implementation(projects.core.design)
     implementation(projects.core.model)
+    implementation(projects.core.data)
     implementation(projects.core.database)
     implementation(projects.feature.currencyConverter)
 }

@@ -18,5 +18,6 @@ local.properties
 /core/network/build
 /core/design/build
 /core/database/build
+/core/common/build
 /feature/currency-converter/build
 

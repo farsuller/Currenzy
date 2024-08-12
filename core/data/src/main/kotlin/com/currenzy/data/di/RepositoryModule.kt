@@ -1,7 +1,7 @@
 package com.currenzy.data.di
 
 import com.currenzy.data.repository.CurrencyRepository
-import com.currenzy.data.repository.CurrencyRepositoryImpl
+import com.currenzy.data.repository.OfflineFirstCurrencyRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,5 +13,5 @@ abstract class RepositoryModule {
 
 
     @Binds
-    abstract fun bindCurrencyRepository(impl: CurrencyRepositoryImpl): CurrencyRepository
+    abstract fun bindCurrencyRepository(impl: OfflineFirstCurrencyRepository): CurrencyRepository
 }

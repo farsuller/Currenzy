@@ -3,13 +3,16 @@ package com.currenzy.currenzyconverter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.currenzy.data.repository.CurrencyRepository
+import com.currenzy.data.worker.WorkSyncManager
 import com.currenzy.model.currency_converter.CurrencyInfo
-import com.currenzy.model.currency_converter.ExchangeRate
+import com.currenzy.model.currency_converter.ExchangeRates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.retryWhen
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -17,33 +20,48 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CurrenzyConverterViewModel @Inject constructor(
-    private val currenzyRepository: CurrencyRepository
+    private val currenzyRepository: CurrencyRepository,
+    workSyncManager: WorkSyncManager
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CurrenzyConverterUiState())
     val uiState = _uiState.asStateFlow()
 
-    private lateinit var exchangeRates: ExchangeRate
+    private lateinit var exchangeRates: ExchangeRates
 
     init {
+        workSyncManager.isSyncing
+            .onEach { isLoading ->
+                _uiState.update {
+                    it.copy(
+                        isLoading = isLoading
+                    )
+                }
+            }.launchIn(viewModelScope)
         initUiState()
     }
 
     private fun initUiState() {
-        viewModelScope.launch {
-            exchangeRates = currenzyRepository.getExchangeRate()
-            _uiState.update {
-                it.copy(
-                    isLoading = false,
-                    allCurrencies = exchangeRates.rates.keys.map {
-                        CurrenzyUiModel(code = it, "")
-                    },
-                    lastUpdated = fromDate(exchangeRates.lastUpdatedDate)
-                )
-            }
+        currenzyRepository
+            .getExchangeRate()
+            .retryWhen { cause, _ -> cause is IllegalStateException }
+            .onEach { exchangeRates ->
+                if (exchangeRates.rates.isEmpty()) {
+                    return@onEach
+                }
+                this.exchangeRates = exchangeRates
 
-            setInitialCurrencies()
-        }
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        allCurrencies = exchangeRates.rates.keys.map {
+                            CurrenzyUiModel(code = it, "")
+                        },
+                        lastUpdated = fromDate(exchangeRates.lastUpdatedDate)
+                    )
+                }
+                setInitialCurrencies()
+            }.launchIn(viewModelScope)
     }
 
     private fun setInitialCurrencies() {

@@ -2,15 +2,15 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "257c54f7b6eb9f78cb3ad47f32c81395",
+    "identityHash": "9d73d1825e44051055acb7ab1d5d0962",
     "entities": [
       {
         "tableName": "ExchangeRatesEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`lastUpdateDate` TEXT NOT NULL, `baseCurrency` TEXT NOT NULL, `exchangeRates` TEXT NOT NULL, PRIMARY KEY(`lastUpdateDate`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`lastUpdatedDate` TEXT NOT NULL, `baseCurrency` TEXT NOT NULL, `exchangeRates` TEXT NOT NULL, PRIMARY KEY(`lastUpdatedDate`))",
         "fields": [
           {
-            "fieldPath": "lastUpdateDate",
-            "columnName": "lastUpdateDate",
+            "fieldPath": "lastUpdatedDate",
+            "columnName": "lastUpdatedDate",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -30,7 +30,7 @@
         "primaryKey": {
           "autoGenerate": false,
           "columnNames": [
-            "lastUpdateDate"
+            "lastUpdatedDate"
           ]
         },
         "indices": [],
@@ -40,7 +40,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '257c54f7b6eb9f78cb3ad47f32c81395')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9d73d1825e44051055acb7ab1d5d0962')"
     ]
   }
 }
