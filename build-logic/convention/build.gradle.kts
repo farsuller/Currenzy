@@ -30,6 +30,7 @@ dependencies {
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.android.tools.common)
     compileOnly(libs.ksp.gradlePlugin)
+    compileOnly(libs.room.gradlePlugin)
 }
 
 gradlePlugin{
@@ -58,6 +59,11 @@ gradlePlugin{
         register("androidFeature"){
             id = "currenzy.android.feature"
             implementationClass = "AndroidFeatureConventionPlugin"
+        }
+
+        register("androidRoom"){
+            id = "currenzy.android.room"
+            implementationClass = "AndroidRoomConventionPlugin"
         }
     }
 }

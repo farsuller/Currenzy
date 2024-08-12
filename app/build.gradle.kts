@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.currenzy.android.hilt)
+    alias(libs.plugins.currenzy.android.room)
 }
 
 val currenzyProperties: Properties by lazy {
@@ -110,5 +111,6 @@ dependencies {
     implementation(projects.core.network)
     implementation(projects.core.design)
     implementation(projects.core.model)
+    implementation(projects.core.database)
     implementation(projects.feature.currencyConverter)
 }

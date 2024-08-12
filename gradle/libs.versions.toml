@@ -62,9 +62,9 @@ retrofit-kotlin-serialization = { group = "com.jakewharton.retrofit", name = "re
 retrofit-logger = { group = "com.squareup.okhttp3", name = "logging-interceptor", version = "4.12.0" }
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.6.3" }
 
-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose"}
-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"}
-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt"}
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
@@ -93,16 +93,16 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "androidLibrary" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
 devtool-ksp = { id = "com.google.devtools.ksp", version.ref = "devtoolKsp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+room = { id = "androidx.room", version.ref = "room" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-currenzy-android-library = {id = "currenzy.android.library", version = "unspecified"}
-currenzy-jvm-library = {id = "currenzy.jvm.library", version = "unspecified"}
-currenzy-android-hilt = {id = "currenzy.android.hilt", version = "unspecified"}
-currenzy-compose-library = {id = "currenzy.compose.library", version = "unspecified"}
-currenzy-android-feature = {id = "currenzy.android.feature", version = "unspecified"}
 
-[bundles]
-bundle-room = ["room-compiler","room-ktx","room-runtime","room-gradlePlugin"]
-bindle-hilt = ["hilt-android", "hilt-compiler","hilt-android-testing"]
+currenzy-android-library = { id = "currenzy.android.library", version = "unspecified" }
+currenzy-jvm-library = { id = "currenzy.jvm.library", version = "unspecified" }
+currenzy-android-hilt = { id = "currenzy.android.hilt", version = "unspecified" }
+currenzy-compose-library = { id = "currenzy.compose.library", version = "unspecified" }
+currenzy-android-feature = { id = "currenzy.android.feature", version = "unspecified" }
+currenzy-android-room = { id = "currenzy.android.room", version = "unspecified" }
 
