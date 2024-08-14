@@ -50,7 +50,7 @@ import com.currenzy.design.theme.CurrenzyTheme
 import kotlinx.coroutines.launch
 
 @Composable
-fun CurrenzyConverterRoute(
+internal fun CurrenzyConverterRoute(
     viewModel: CurrenzyConverterViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -64,7 +64,7 @@ fun CurrenzyConverterRoute(
 }
 
 @Composable
-fun CurrenzyConverterScreen(
+internal fun CurrenzyConverterScreen(
     uiState: CurrenzyConverterUiState,
     onFromCurrencyChange: (CurrenzyUiModel) -> Unit,
     onToCurrencyChange: (CurrenzyUiModel) -> Unit,

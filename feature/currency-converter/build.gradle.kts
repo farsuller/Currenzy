@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.currenzy.android.feature)
     alias(libs.plugins.currenzy.compose.library)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -9,6 +10,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.kotlin.serialization.json)
     implementation(projects.core.data)
     implementation(projects.core.model)
     implementation(projects.core.common)
