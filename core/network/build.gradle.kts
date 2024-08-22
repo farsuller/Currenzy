@@ -4,6 +4,7 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.currenzy.android.library)
     alias(libs.plugins.currenzy.android.hilt)
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
     id("kotlinx-serialization")
 }
 
@@ -22,10 +23,6 @@ val currenzyProperties: Properties by lazy {
 android {
     namespace = "com.currenzy.network"
 
-    defaultConfig {
-        buildConfigField(type = "String",name = "API_KEY", "\"${currenzyProperties.getProperty("API_KEY")}\"")
-        buildConfigField(type = "String",name = "BASE_URL", "\"${currenzyProperties.getProperty("BASE_URL")}\"")
-    }
 
     buildFeatures {
         buildConfig = true

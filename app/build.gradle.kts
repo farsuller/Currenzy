@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.currenzy.android.hilt)
     alias(libs.plugins.currenzy.android.room)
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 val currenzyProperties: Properties by lazy {
