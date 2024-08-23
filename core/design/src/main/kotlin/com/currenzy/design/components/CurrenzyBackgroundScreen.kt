@@ -39,8 +39,8 @@ fun CurrenzyBackgroundScreen(
             drawCircle(
                 brush = Brush.radialGradient(
                     colors = listOf(
-                        Color(0x7CC9C9FF),
-                        Color(0xFFDDF6F3),
+                        Color(0x7C08EDFF),
+                        Color(0xFFC1F0F7),
                         Color.White
                     )
                 )

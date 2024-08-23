@@ -45,14 +45,12 @@ fun CurrenzyCard(
 @Composable
 fun CurrenzyCardPreview() {
     CurrenzyTheme {
-        CurrenzyCard {
-            CurrenzyCard(
-                modifier = Modifier
-                    .width(300.dp)
-                    .height(200.dp)
-            ) {
+        CurrenzyCard(
+            modifier = Modifier
+                .width(300.dp)
+                .height(200.dp)
+        ) {
 
-            }
         }
     }
 }

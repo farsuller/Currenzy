@@ -10,13 +10,13 @@ import androidx.compose.ui.unit.sp
 val Typography = Typography(
     headlineLarge = TextStyle(
         fontSize = 25.sp,
-        color = Purple40,
+        color = CyanLTLabel,
         fontWeight = FontWeight.Bold,
     ),
 
     titleMedium = TextStyle(
         fontSize = 20.sp,
-        color = Purple40,
+        color = CyanLTLabel,
         fontWeight = FontWeight.Medium,
     ),
 
