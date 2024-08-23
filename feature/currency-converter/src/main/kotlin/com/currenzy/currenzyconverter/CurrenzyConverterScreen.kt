@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -131,7 +132,9 @@ internal fun CurrenzyConverterScreen(
                 )
                 {
                     CircularProgressIndicator(
-                        modifier = Modifier.size(30.dp)
+                        modifier = Modifier
+                            .size(30.dp)
+                            .testTag("loading")
                     )
                 }
             }
@@ -258,7 +261,8 @@ fun CurrenzySwapper(
                             tween(300)
                         )
                     }
-                },
+                }
+                .testTag("swap"),
             contentAlignment = Alignment.Center
         ) {
             Icon(

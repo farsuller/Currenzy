@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.currenzy.data.repository.CurrencyRepository
+import com.currenzy.data.worker.SyncManager
 import com.currenzy.data.worker.WorkSyncManager
 import com.currenzy.model.currency_converter.CurrencyInfo
 import com.currenzy.model.currency_converter.ExchangeRates
@@ -23,7 +24,7 @@ import javax.inject.Inject
 class CurrenzyConverterViewModel @Inject constructor(
     private val currenzyRepository: CurrencyRepository,
     private val sharedPreferences: SharedPreferences,
-    workSyncManager: WorkSyncManager
+    workSyncManager: SyncManager
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CurrenzyConverterUiState())

@@ -46,6 +46,8 @@ private fun Project.configureKotlin() {
             jvmTarget.set(JvmTarget.JVM_11)
             freeCompilerArgs.addAll(
                 listOf(
+                    // Enable experimental coroutines APIs, including Flow
+                    "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                     "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
                     "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
                     "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi"
