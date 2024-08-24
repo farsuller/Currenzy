@@ -13,29 +13,35 @@ import org.junit.Test
 
 class CurrenzyConverterScreenTest {
 
+    // Rule for setting up and tearing down the Compose testing environment
     @get: Rule val composeTestRule = createComposeRule()
 
+    // Test to check if the loading indicator is visible in the initial state
     @Test
-    fun initialStateAssertLoadingVisible(){
+    fun initialStateAssertLoadingVisible() {
+        // Set the content of the Compose UI for testing
         composeTestRule.setContent {
             CurrenzyConverterScreen(
-                uiState = CurrenzyConverterUiState(),
+                uiState = CurrenzyConverterUiState(), // Initial empty UI state
                 onFromCurrencyChange = {},
                 onToCurrencyChange = {},
                 onSwap = {}
             )
         }
+
+        // Assert that the loading indicator with tag "loading" exists in the UI
         composeTestRule.onNodeWithTag("loading").assertExists()
     }
 
+    // Test to check if clicking the swap button changes the currencies
     @Test
-    fun swapClickAssertChangingCurrencies(){
-
-        var fromCurrency = CurrenzyUiModel("USD", " 1.0")
+    fun swapClickAssertChangingCurrencies() {
+        // Initial values for from and to currencies
+        var fromCurrency = CurrenzyUiModel("USD", "1.0")
         var toCurrency = CurrenzyUiModel("PHP", "56.0")
 
+        // Set the content of the Compose UI for testing
         composeTestRule.setContent {
-
             var uiState by remember {
                 mutableStateOf(CurrenzyConverterUiState(
                     fromCurrency = fromCurrency,
@@ -47,26 +53,30 @@ class CurrenzyConverterScreenTest {
                 onFromCurrencyChange = {},
                 onToCurrencyChange = {},
                 onSwap = {
+                    // Swap currencies on button click
                     val temp = fromCurrency
                     fromCurrency = toCurrency
                     toCurrency = temp
                     uiState = uiState.copy(
                         fromCurrency = fromCurrency,
-                        toCurrency = toCurrency)
+                        toCurrency = toCurrency
+                    )
                 }
             )
         }
 
+        // Assert initial state of the currencies
         composeTestRule.onNodeWithText("USD").assertExists()
         composeTestRule.onNodeWithText("PHP").assertExists()
 
         assert(fromCurrency.code == "USD")
         assert(toCurrency.code == "PHP")
 
+        // Simulate a click on the swap button
         composeTestRule.onNodeWithTag("swap").performClick()
 
+        // Assert that the currencies have been swapped
         assert(fromCurrency.code == "PHP")
         assert(toCurrency.code == "USD")
     }
-
 }

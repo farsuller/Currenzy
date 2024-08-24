@@ -1,6 +1,6 @@
 package com.currenzy.currenzyconverter
 
-data class CurrenzyUiModel(
+data class addCurrenzyUiModel(
     val code: String,
     val value: String
 )

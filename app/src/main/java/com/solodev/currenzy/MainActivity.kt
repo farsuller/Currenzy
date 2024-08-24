@@ -16,7 +16,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CurrenzyTheme(
-                dynamicColor = false
+                dynamicColor = false,
+                darkTheme = false
             ) {
                 CurrenzyConverterNavGraph()
             }

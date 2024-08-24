@@ -27,17 +27,22 @@ class CurrenzyConverterViewModel @Inject constructor(
     workSyncManager: SyncManager
 ) : ViewModel() {
 
+    // State flow to hold and observe UI state
     private val _uiState = MutableStateFlow(CurrenzyConverterUiState())
     val uiState = _uiState.asStateFlow()
 
+    // Stores the latest exchange rates
     private lateinit var exchangeRates: ExchangeRates
 
-    companion object{
+    companion object {
+        // Keys for storing currency codes in SharedPreferences
         const val FROM_CURRENCY_KEY = "fromCurrencyKey"
         const val TO_CURRENCY_KEY = "toCurrencyKey"
     }
 
+    // Initialize ViewModel
     init {
+        // Observe sync state to update loading status
         workSyncManager.isSyncing
             .onEach { isLoading ->
                 _uiState.update {
@@ -46,9 +51,12 @@ class CurrenzyConverterViewModel @Inject constructor(
                     )
                 }
             }.launchIn(viewModelScope)
+
+        // Initialize UI state
         initUiState()
     }
 
+    // Initialize the UI state based on exchange rates
     private fun initUiState() {
         currenzyRepository
             .getExchangeRate()
@@ -59,6 +67,7 @@ class CurrenzyConverterViewModel @Inject constructor(
                 }
                 this.exchangeRates = exchangeRates
 
+                // Update UI state with the fetched exchange rates
                 _uiState.update {
                     it.copy(
                         isLoading = false,
@@ -68,10 +77,12 @@ class CurrenzyConverterViewModel @Inject constructor(
                         lastUpdated = fromDate(exchangeRates.lastUpdatedDate)
                     )
                 }
+                // Set initial currencies based on user preferences
                 setInitialCurrencies()
             }.launchIn(viewModelScope)
     }
 
+    // Set initial currencies based on user preferences and conversion rates
     private fun setInitialCurrencies() {
         val initialCurrencies = getUserCurrencies()
 
@@ -81,6 +92,7 @@ class CurrenzyConverterViewModel @Inject constructor(
             amount = 1.0
         )
 
+        // Update UI state with initial currency settings
         _uiState.update {
             it.copy(
                 fromCurrency = CurrenzyUiModel(initialCurrencies.first.code, "1.00"),
@@ -88,24 +100,25 @@ class CurrenzyConverterViewModel @Inject constructor(
                 indicativeExchangeRate = "1 ${initialCurrencies.first.code} = $convertedResult ${initialCurrencies.second.code}"
             )
         }
-
     }
 
+    // Get user-selected currencies from SharedPreferences
     private fun getUserCurrencies(): Pair<CurrencyInfo, CurrencyInfo> {
         val fromCurrencyCode = sharedPreferences.getString(FROM_CURRENCY_KEY, null)
         val toCurrencyCode = sharedPreferences.getString(TO_CURRENCY_KEY, null)
         var fromCurrency = CurrencyInfo("USD", exchangeRates.rates.getValue("USD"))
         var toCurrency = CurrencyInfo("PHP", exchangeRates.rates.getValue("PHP"))
 
-        if(fromCurrencyCode != null){
+        if (fromCurrencyCode != null) {
             fromCurrency = CurrencyInfo(fromCurrencyCode, exchangeRates.rates.getValue(fromCurrencyCode))
         }
-        if(toCurrencyCode != null){
+        if (toCurrencyCode != null) {
             toCurrency = CurrencyInfo(toCurrencyCode, exchangeRates.rates.getValue(toCurrencyCode))
         }
         return Pair(fromCurrency, toCurrency)
     }
 
+    // Handle changes in the 'from' currency field
     fun onFromCurrencyChange(fromCurrency: CurrenzyUiModel) {
         when (val validResult = fromCurrency.value.safeToDouble()) {
             is StringToDoubleConversionResult.Valid -> {
@@ -116,6 +129,7 @@ class CurrenzyConverterViewModel @Inject constructor(
                         amount = validResult.value
                     )
 
+                    // Update UI state with new 'from' currency and converted 'to' currency value
                     _uiState.update {
                         it.copy(
                             fromCurrency = fromCurrency,
@@ -129,10 +143,12 @@ class CurrenzyConverterViewModel @Inject constructor(
                         )
                     }
                 }
+                // Save selected 'from' currency to SharedPreferences
                 sharedPreferences.edit().putString(FROM_CURRENCY_KEY, fromCurrency.code).apply()
             }
 
             is StringToDoubleConversionResult.Empty -> {
+                // Clear 'from' and 'to' currency values if input is empty
                 _uiState.update {
                     it.copy(
                         fromCurrency = it.fromCurrency.copy(value = ""),
@@ -145,15 +161,18 @@ class CurrenzyConverterViewModel @Inject constructor(
         }
     }
 
+    // Handle changes in the 'to' currency field
     fun onToCurrencyChange(toCurrency: CurrenzyUiModel) {
 
         if (toCurrency.code != uiState.value.toCurrency.code) {
+            // Update 'to' currency and recalculate 'from' currency
             _uiState.update {
                 it.copy(
                     toCurrency = toCurrency
                 )
             }
             onFromCurrencyChange(fromCurrency = uiState.value.fromCurrency)
+            // Save selected 'to' currency to SharedPreferences
             sharedPreferences.edit().putString(TO_CURRENCY_KEY, toCurrency.code).apply()
             return
         }
@@ -167,6 +186,7 @@ class CurrenzyConverterViewModel @Inject constructor(
                         amount = validResult.value
                     )
 
+                    // Update UI state with new 'to' currency and recalculated 'from' currency value
                     _uiState.update {
                         it.copy(
                             fromCurrency = fromCurrency.copy(value = convertedResult),
@@ -177,6 +197,7 @@ class CurrenzyConverterViewModel @Inject constructor(
             }
 
             is StringToDoubleConversionResult.Empty -> {
+                // Clear 'from' and 'to' currency values if input is empty
                 _uiState.update {
                     it.copy(
                         fromCurrency = it.fromCurrency.copy(value = ""),
@@ -189,6 +210,7 @@ class CurrenzyConverterViewModel @Inject constructor(
         }
     }
 
+    // Swap 'from' and 'to' currencies
     fun swapCurrencies() {
         _uiState.update {
             it.copy(
@@ -198,6 +220,7 @@ class CurrenzyConverterViewModel @Inject constructor(
         }
     }
 
+    // Convert a string value to a Double, handling empty and invalid cases
     private fun String.safeToDouble(): StringToDoubleConversionResult {
         return if (this.endsWith(".")) {
             StringToDoubleConversionResult.Valid(dropLast(1).toDouble())
@@ -210,6 +233,7 @@ class CurrenzyConverterViewModel @Inject constructor(
         }
     }
 
+    // Get the indicative exchange rate between two currencies
     private fun getIndicativeExchangeRate(
         fromCurrencyCode: String,
         toCurrencyCode: String
@@ -221,6 +245,7 @@ class CurrenzyConverterViewModel @Inject constructor(
         )
     }
 
+    // Convert an amount from one currency to another
     private fun convert(
         fromVsBaseValue: Double,
         toVsBaseValue: Double,
@@ -235,6 +260,7 @@ class CurrenzyConverterViewModel @Inject constructor(
         }
     }
 
+    // Format the date string
     private fun fromDate(date: String): String {
         return try {
             val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
@@ -246,7 +272,7 @@ class CurrenzyConverterViewModel @Inject constructor(
     }
 }
 
-
+// Sealed interface to represent conversion result states
 private sealed interface StringToDoubleConversionResult {
     data class Valid(val value: Double) : StringToDoubleConversionResult
 
